@@ -8,7 +8,7 @@ using SmartSchool.WebAPI.Data;
 namespace SmartSchool.WebAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210525174345_initial")]
+    [Migration("20210610164135_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -236,7 +236,7 @@ namespace SmartSchool.WebAPI.Migrations
 
                     b.HasIndex("ProfessorId");
 
-                    b.ToTable("Diciplinas");
+                    b.ToTable("Disciplinas");
 
                     b.HasData(
                         new
@@ -315,7 +315,7 @@ namespace SmartSchool.WebAPI.Migrations
             modelBuilder.Entity("SmartSchool.WebAPI.Models.AlunoDisciplina", b =>
                 {
                     b.HasOne("SmartSchool.WebAPI.Models.Aluno", "Aluno")
-                        .WithMany()
+                        .WithMany("AlunosDisciplinas")
                         .HasForeignKey("AlunoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
