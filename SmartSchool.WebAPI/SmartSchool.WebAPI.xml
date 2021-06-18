@@ -4,7 +4,42 @@
         <name>SmartSchool.WebAPI</name>
     </assembly>
     <members>
-        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Get">
+        <member name="F:SmartSchool.WebAPI.Helpers.PageParams.MaxPageSize">
+            <summary>
+            Número maximo de paginas
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.Helpers.PageParams.PageNumber">
+            <summary>
+            Parametro para navegar nas páginas
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.Helpers.PageParams.PageSize">
+            <summary>
+            Parametro que controla a quantidade de objetos por pagina
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.Helpers.PageParams.Matricula">
+            <summary>
+            Parametro para busca pela matricula do aluno
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.Helpers.PageParams.Nome">
+            <summary>
+            Parametro para busca pelo nome do aluno
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.Helpers.PageParams.Ativo">
+            <summary>
+            Parametro para busca de aluno ativos(1) ou inativos(0)
+            </summary>
+        </member>
+        <member name="P:SmartSchool.WebAPI.Helpers.PageParams.orderByNome">
+            <summary>
+            Parametro que controla a ordenação em ordem alfabetica, onde 0 será em ordem desc e 1 para asc
+            </summary>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Get(SmartSchool.WebAPI.Helpers.PageParams)">
             <summary>
             Método responsável por retornar todos os alunos
             </summary>
