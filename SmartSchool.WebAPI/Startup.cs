@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -8,14 +9,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using SmartSchool.WebAPI.Data;
 
 namespace SmartSchool.WebAPI
@@ -34,7 +34,13 @@ namespace SmartSchool.WebAPI
         {
 
             services.AddDbContext<DataContext>(
-                context => context.UseSqlite(Configuration.GetConnectionString("Default"))
+                context => context.UseMySql(Configuration.GetConnectionString("MySqlConnection"),
+                    context => context.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(5),
+                        errorNumbersToAdd: null
+                    )
+                )
             );
 
 
@@ -102,10 +108,22 @@ namespace SmartSchool.WebAPI
                               IWebHostEnvironment env,
                               IApiVersionDescriptionProvider apiProviderDescription)
         {
+            var enUS = new CultureInfo("en-US");
+            var localizationOption = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(enUS),
+                SupportedCultures = new List<CultureInfo> {enUS},
+                SupportedUICultures = new List<CultureInfo> {enUS}
+            };
+
+            app.UseRequestLocalization(localizationOption);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger()
+            }
+
+            app.UseSwagger()
                    .UseSwaggerUI(options =>
                    {
                        foreach (var description in apiProviderDescription.ApiVersionDescriptions)
@@ -115,7 +133,6 @@ namespace SmartSchool.WebAPI
                        }
                        options.RoutePrefix = "";
                    });
-            }
 
             app.UseHttpsRedirection();
 
