@@ -67,7 +67,7 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Patch(System.Int32,SmartSchool.WebAPI.V1.Dtos.AlunoRegistrarDto)">
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Patch(System.Int32,SmartSchool.WebAPI.V1.Dtos.AlunoPatchDto)">
             <summary>
             Método responsável por atualizar um aluno por meio do id
             </summary>

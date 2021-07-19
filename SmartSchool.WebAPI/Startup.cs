@@ -101,6 +101,8 @@ namespace SmartSchool.WebAPI
 
                 options.IncludeXmlComments(xmlCommentsFullPath);
             });
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -112,8 +114,8 @@ namespace SmartSchool.WebAPI
             var localizationOption = new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture(enUS),
-                SupportedCultures = new List<CultureInfo> {enUS},
-                SupportedUICultures = new List<CultureInfo> {enUS}
+                SupportedCultures = new List<CultureInfo> { enUS },
+                SupportedUICultures = new List<CultureInfo> { enUS }
             };
 
             app.UseRequestLocalization(localizationOption);
@@ -134,9 +136,11 @@ namespace SmartSchool.WebAPI
                        options.RoutePrefix = "";
                    });
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthorization();
 
